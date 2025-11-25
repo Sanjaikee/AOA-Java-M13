@@ -1,6 +1,5 @@
 
 # EX 3A N Queens Problem - Backtracking Approach.
-## DATE: 17-11-2025
 ## AIM:
 To Write a Java program for N queens using backtracking approach.
 You are given an integer N. For a given N x N chessboard, find a way to place 'N' queens such that no queen can attack any other queen on the chessboard.
@@ -18,40 +17,30 @@ If solution exists Print a binary matrix as output that has 1s for the cells whe
 If there is no solution to the problem  print  "Solution does not exist"
 
 ## Algorithm
-1. Start  
-2. Read the integer `N` — the size of the chessboard and the number of queens to be placed.  
-3. Initialize an `N × N` chessboard with all cells set to `0`.  
-4. Define a recursive function `solveNQUtil(board, col)` to place queens one column at a time:  
-   - If `col >= N`, all queens are placed successfully → return `true`.  
-   - For each row `i` in column `col`:  
-     - Check if placing a queen at `(i, col)` is safe using the `isSafe()` function.  
-     - If safe:  
-       - Place a queen (`board[i][col] = 1`).  
-       - Recursively call `solveNQUtil(board, col + 1)` to place the rest.  
-       - If successful, return `true`.  
-       - If not, backtrack (`board[i][col] = 0`).  
-   - If no safe position is found in this column, return `false`.  
-5. The `isSafe()` function checks if a queen can be placed at position `(row, col)` by verifying:  
-   - No other queen exists in the same row on the left.  
-   - No other queen exists in the upper-left diagonal.  
-   - No other queen exists in the lower-left diagonal.  
-6. If the recursive function returns `false`, print “Solution does not exist.”  
-7. If successful, print the board configuration where `1` indicates a queen’s position.  
-8. End  
-   
+1.Start and read the value of N (chessboard size).
+
+2.Place queens column by column using recursion.
+
+3.Check if the current position is safe (no queen in row, upper-left, or lower-left diagonal).
+
+4.If safe, place the queen and recursively place the rest; if not, backtrack.
+
+5.Print the board if all queens are placed, else display “No solution exists.”   
 
 ## Program:
 ```
 /*
-
-Developed by: Abinav Sankar S
-Register Number:  212222040002
+Program to implement Reverse a String
+Developed by: Sanjai S
+Register Number: 212223230186
 */
+
 import java.util.Scanner;
 
 public class NQueens {
     static int N;
 
+    
     static void printSolution(int[][] board) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -61,15 +50,19 @@ public class NQueens {
         }
     }
 
+    
     static boolean isSafe(int[][] board, int row, int col) {
+        // Check left side of current row
         for (int i = 0; i < col; i++)
             if (board[row][i] == 1)
                 return false;
 
+       
         for (int i = row, j = col; i >= 0 && j >= 0; i--, j--)
             if (board[i][j] == 1)
                 return false;
 
+        
         for (int i = row, j = col; i < N && j >= 0; i++, j--)
             if (board[i][j] == 1)
                 return false;
@@ -77,23 +70,29 @@ public class NQueens {
         return true;
     }
 
+    // Recursive utility function to solve N-Queens
     static boolean solveNQUtil(int[][] board, int col) {
-        if (col >= N)
+        //Add your code Here
+        if(col>=N)
+        {
             return true;
-
-        for (int i = 0; i < N; i++) {
-            if (isSafe(board, i, col)) {
-                board[i][col] = 1;
-
-                if (solveNQUtil(board, col + 1))
+        }
+        for(int i=0;i<N;i++)
+        {
+            if(isSafe(board,i,col))
+            {
+                board[i][col]=1;
+                if(solveNQUtil(board,col+1))
+                {
                     return true;
-
-                board[i][col] = 0;
+                }
+                board[i][col]=0;
             }
         }
         return false;
     }
 
+    
     static boolean solveNQ() {
         int[][] board = new int[N][N];
 
@@ -106,9 +105,10 @@ public class NQueens {
         return true;
     }
 
+   
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        N = scanner.nextInt();
+        N = scanner.nextInt(); // Accept board size
         solveNQ();
     }
 }
@@ -117,7 +117,7 @@ public class NQueens {
 
 ## Output:
 
-<img width="811" height="404" alt="image" src="https://github.com/user-attachments/assets/64584491-f648-4f9a-8803-0c1f5026f1ef" />
+<img width="618" height="256" alt="image" src="https://github.com/user-attachments/assets/3f470b8d-bf9c-487e-8478-2a12b2c9581a" />
 
 
 ## Result:
